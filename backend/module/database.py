@@ -11,9 +11,10 @@ class Database:
         cursor = con.cursor(pymysql.cursors.DictCursor)
 
         try:
-            cursor.execute(query=query)
+            cursor.execute(query)
             return cursor.fetchall()
-        except:
+        except Exception as e:
+            print('error ', e)
             return ()
         finally:
             con.close()

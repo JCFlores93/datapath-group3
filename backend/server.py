@@ -20,13 +20,16 @@ def read_embargos(page):
         print(" GET ", request)
         print(start_at)
         print(page)
-        query = ("SELECT * FROM embargos order by name asc limit %s, %s;", (start_at, ROWS_PER_REQUEST))
+        # query = ("SELECT * FROM embargos order by nombre_completo asc limit %s, %s;", (start_at, ROWS_PER_REQUEST))
+        query = f"SELECT * FROM embargos order by nombre_completo asc limit {start_at}, {ROWS_PER_REQUEST};"
         result = db.read(query)
         print(result)
     except Exception as e:
+        print(e)
         return e
     return jsonify({"rows": result})
 
+### Cambio por resultados
 @app.route("/read_products", defaults={"page": 1})
 @app.route("/read_products/page/<int:page>", methods=["GET"])
 def read_productos(page):
